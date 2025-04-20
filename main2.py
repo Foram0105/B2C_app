@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 from sklearn.cluster import KMeans
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
@@ -677,8 +678,8 @@ def dashboard():
         # Subcategory-wise shipping mode preference (e.g., which shipping modes are most popular for different subcategories)
         st.markdown("### 🚚 Shipping Mode Preference by Subcategory")
         shipping_pref_subcategory = df3.groupby(['Sub-Category', 'Ship Mode']).size().unstack().fillna(0)
-        fig_shipping_pref = px.Figure(
-            data=[px.Bar(name=ship_mode, x=shipping_pref_subcategory.index, y=shipping_pref_subcategory[ship_mode])
+        fig_shipping_pref = go.Figure(
+            data=[go.Bar(name=ship_mode, x=shipping_pref_subcategory.index, y=shipping_pref_subcategory[ship_mode])
                   for ship_mode in shipping_pref_subcategory.columns])
         fig_shipping_pref.update_layout(barmode='stack', title='Shipping Mode Preference by Subcategory',
                                         xaxis_title='Subcategory', yaxis_title='Count')
